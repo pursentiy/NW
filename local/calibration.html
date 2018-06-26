@@ -1,0 +1,441 @@
+
+<!doctype html>
+<html>
+<head>
+	<title>Програмный комплекс для анализа шумовх составляющих МЭМС-датчиков</title>
+	<meta charset="utf-8" />
+	<link href="css/fonts.css" rel="stylesheet">
+	<link href="css/main.css" rel="stylesheet">
+	<link href="plugins/jquery-ui.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+	<link rel="stylesheet" href="css/flickity.css">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+	.preloader{
+		position: fixed;
+		width: 100%;
+		height: 109VH;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: #EEEEEF;
+		z-index: 900000;
+		transition: .7s cubic-bezier(.77,0,.175,1),opacity 1.7s linear, .7s cubic-bezier(.77,0,.175,1);
+	}
+
+
+	.lds-roller {
+		display: inline-block;
+		position: relative;
+		width: 64px;
+		height: 64px;
+		transform: scale(2);
+	}
+	.lds-roller div {
+		animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+		transform-origin: 32px 32px;
+	}
+	.lds-roller div:after {
+		content: " ";
+		display: block;
+		position: absolute;
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+		background: #f5962e;
+		margin: -3px 0 0 -3px;
+	}
+	.lds-roller div:nth-child(1) {
+		animation-delay: -0.036s;
+	}
+	.lds-roller div:nth-child(1):after {
+		top: 50px;
+		left: 50px;
+	}
+	.lds-roller div:nth-child(2) {
+		animation-delay: -0.072s;
+	}
+	.lds-roller div:nth-child(2):after {
+		top: 54px;
+		left: 45px;
+	}
+	.lds-roller div:nth-child(3) {
+		animation-delay: -0.108s;
+	}
+	.lds-roller div:nth-child(3):after {
+		top: 57px;
+		left: 39px;
+	}
+	.lds-roller div:nth-child(4) {
+		animation-delay: -0.144s;
+	}
+	.lds-roller div:nth-child(4):after {
+		top: 58px;
+		left: 32px;
+	}
+	.lds-roller div:nth-child(5) {
+		animation-delay: -0.18s;
+	}
+	.lds-roller div:nth-child(5):after {
+		top: 57px;
+		left: 25px;
+	}
+	.lds-roller div:nth-child(6) {
+		animation-delay: -0.216s;
+	}
+	.lds-roller div:nth-child(6):after {
+		top: 54px;
+		left: 19px;
+	}
+	.lds-roller div:nth-child(7) {
+		animation-delay: -0.252s;
+	}
+	.lds-roller div:nth-child(7):after {
+		top: 50px;
+		left: 14px;
+	}
+	.lds-roller div:nth-child(8) {
+		animation-delay: -0.288s;
+	}
+	.lds-roller div:nth-child(8):after {
+		top: 45px;
+		left: 10px;
+	}
+	@keyframes lds-roller {
+		0% {
+			transform: rotate(0deg);
+		}
+		100% {
+			transform: rotate(360deg);
+		}
+	}
+
+
+</style>
+</head>
+<body class="calibration">
+
+	<div class="preloader">
+		<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+	</div>
+	
+	<div class="question" id="quest">
+	</div>
+
+	<div class="overlay" ></div>
+	<div class="window" >
+		<div id="head_window" class="head agreement" >И как же тут все работает?</div>
+		<br><br>
+		<div class="sea">
+			<div class="circle-wrapper">
+				<div class="bubble"></div>
+				<div class="submarine-wrapper">
+					<div class="submarine-body">
+						<div class="windows"></div>
+						<div class="engine"></div>
+						<div class="light"></div>
+					</div>
+					<div class="helix"></div>
+					<div class="hat">
+						<div class="leds-wrapper">
+							<div class="periscope"></div>
+							<div class="leds"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="text">
+
+			Для начала калибровки датчика в блоке "Начало калибровки" нажмите на кнопку "Настройки". <br>
+			Запустив программу и установив датчик в первое положение, нажмите на кнопку "Начать сбор данных" и следуйте дальнейшим инструкциям...
+		</div><br>
+
+		<br>
+
+		<a id="button_window" class="waves-effect waves-light btn-large">Понятно</a>
+		<a id="button_restart" class="waves-effect waves-light btn-large">Перезагрузить</a>
+
+	</div>
+
+
+	<div class="posCheck">
+		<div class="wrap">
+			<span id="logInfo_text">Идет проверка положения...</span>
+			<div class="circle-loader-check">
+				<div class="checkmark-check draw"></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="serverGears">
+		<svg class="lds-gears"  style="margin: 0 auto;" width="150px" height="150px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid"><g transform="translate(50 50)"> <g transform="translate(-19 -19) scale(0.6)"> <g transform="rotate(204.133)">
+			<animateTransform attributeName="transform" type="rotate" values="0;360" keyTimes="0;1" dur="2.9s" begin="0s" repeatCount="indefinite"></animateTransform><path d="M37.43995192304605 -6.5 L47.43995192304605 -6.5 L47.43995192304605 6.5 L37.43995192304605 6.5 A38 38 0 0 1 32.858786584253636 19.086648323120365 L32.858786584253636 19.086648323120365 L40.51923101544342 25.514524419985758 L32.162992089518404 35.47310218053248 L24.50254765832862 29.045226083667085 A38 38 0 0 1 12.902629817953784 35.74244177138504 L12.902629817953784 35.74244177138504 L14.639111594623088 45.590519301507115 L1.8366108054643882 47.84794561117721 L0.10012902879508426 37.99986808105513 A38 38 0 0 1 -13.09081083692417 35.67394948182593 L-13.09081083692417 35.67394948182593 L-18.09081083692417 44.33420351967032 L-29.34914108612187 37.834203519670325 L-24.349141086121872 29.173949481825936 A38 38 0 0 1 -32.95891561304871 18.91321975793477 L-32.95891561304871 18.91321975793477 L-42.35584182090779 22.33342119119146 L-46.802103684141485 10.11741712097465 L-37.405177476282404 6.697215687717961 A38 38 0 0 1 -37.405177476282404 -6.697215687717953 L-37.405177476282404 -6.697215687717953 L-46.802103684141485 -10.11741712097464 L-42.3558418209078 -22.333421191191444 L-32.95891561304872 -18.91321975793476 A38 38 0 0 1 -24.349141086121893 -29.17394948182592 L-24.349141086121893 -29.17394948182592 L-29.349141086121897 -37.834203519670304 L-18.0908108369242 -44.334203519670304 L-13.090810836924195 -35.67394948182592 A38 38 0 0 1 0.10012902879506654 -37.99986808105513 L0.10012902879506654 -37.99986808105513 L1.8366108054643664 -47.84794561117722 L14.63911159462307 -45.59051930150712 L12.90262981795377 -35.74244177138504 A38 38 0 0 1 24.502547658328616 -29.04522608366709 L24.502547658328616 -29.04522608366709 L32.1629920895184 -35.473102180532486 L40.5192310154434 -25.51452441998578 L32.85878658425362 -19.086648323120382 A38 38 0 0 1 37.43995192304605 -6.500000000000007 M0 -24A24 24 0 1 0 0 24 A24 24 0 1 0 0 -24" fill="#f5962e"></path></g></g> <g transform="translate(19 19) scale(0.6)"> <g transform="rotate(135.867)">
+				<animateTransform attributeName="transform" type="rotate" values="360;0" keyTimes="0;1" dur="2.9s" begin="-0.1611111111111111s" repeatCount="indefinite"></animateTransform><path d="M37.43995192304605 -6.5 L47.43995192304605 -6.5 L47.43995192304605 6.5 L37.43995192304605 6.5 A38 38 0 0 1 32.858786584253636 19.086648323120365 L32.858786584253636 19.086648323120365 L40.51923101544342 25.514524419985758 L32.162992089518404 35.47310218053248 L24.50254765832862 29.045226083667085 A38 38 0 0 1 12.902629817953784 35.74244177138504 L12.902629817953784 35.74244177138504 L14.639111594623088 45.590519301507115 L1.8366108054643882 47.84794561117721 L0.10012902879508426 37.99986808105513 A38 38 0 0 1 -13.09081083692417 35.67394948182593 L-13.09081083692417 35.67394948182593 L-18.09081083692417 44.33420351967032 L-29.34914108612187 37.834203519670325 L-24.349141086121872 29.173949481825936 A38 38 0 0 1 -32.95891561304871 18.91321975793477 L-32.95891561304871 18.91321975793477 L-42.35584182090779 22.33342119119146 L-46.802103684141485 10.11741712097465 L-37.405177476282404 6.697215687717961 A38 38 0 0 1 -37.405177476282404 -6.697215687717953 L-37.405177476282404 -6.697215687717953 L-46.802103684141485 -10.11741712097464 L-42.3558418209078 -22.333421191191444 L-32.95891561304872 -18.91321975793476 A38 38 0 0 1 -24.349141086121893 -29.17394948182592 L-24.349141086121893 -29.17394948182592 L-29.349141086121897 -37.834203519670304 L-18.0908108369242 -44.334203519670304 L-13.090810836924195 -35.67394948182592 A38 38 0 0 1 0.10012902879506654 -37.99986808105513 L0.10012902879506654 -37.99986808105513 L1.8366108054643664 -47.84794561117722 L14.63911159462307 -45.59051930150712 L12.90262981795377 -35.74244177138504 A38 38 0 0 1 24.502547658328616 -29.04522608366709 L24.502547658328616 -29.04522608366709 L32.1629920895184 -35.473102180532486 L40.5192310154434 -25.51452441998578 L32.85878658425362 -19.086648323120382 A38 38 0 0 1 37.43995192304605 -6.500000000000007 M0 -24A24 24 0 1 0 0 24 A24 24 0 1 0 0 -24" fill="#f5962e"></path></g></g></g></svg>
+				<br>
+				<h3>Идет расчет параметров вариации Аллана</h3>
+
+
+
+				<div class="bar">
+					<span></span>
+				</div>
+
+			</div>
+
+
+			<div class="wrapper">	
+				<header>
+					<div class="input_settings">
+						<div class="post">
+							<br><br><br>
+							<select id="example-select" name="my_select">
+								<option>Выбор порта</option>
+							</select>
+							<br><br>
+							<input type="text" placeholder="Скорость передачи" size="40" id="speed-input">
+							<br><br>
+							<a id="clickcalibration" class="waves-effect waves-light btn-large settings_menu">Запуск</a>
+						</div>
+					</div>
+
+					<div class="main_navigation">
+						<br><br>
+						<ul>
+							<li id="first"><a href="index.html">ПРИБОРНАЯ ПАНЕЛЬ</a></li>
+							<li id="second"><a href="calibration.html">КАЛИБРОВКА</a></li>
+							<li id="third"><a href="avar.html">ВАРИАЦИЯ АЛЛАНА</a></li>
+						</ul>
+						<div class="button_toggle">
+							<input type="checkbox"><span class="transform"></span>
+						</div>
+					</div>
+
+
+
+					<div class="firstBlock section2">
+						<h1>Калибровка датчика</h1>
+					</div>
+
+
+					<div class="section2 calibration">
+						<div class="logInfo">
+							<br>
+							<span id="logInfo_text">Идет калибровка</span>
+							<br>
+							<div class="circle-loader">
+								<div class="checkmark draw"></div>
+							</div>
+							<br>
+						</div>
+
+						<div class="wrapCalab">
+							<div class="Wrapbloc">
+								<div class="block2">
+									<div class="input_settings">
+										<div class="post">
+											<h2>Начало калибровки</h2>
+											<a id="button_window_menu" class="waves-effect waves-light btn-large index_button">Настройки</a>
+										</div>
+									</div>
+								</div>
+
+								<div class="block1">
+									<br>
+									<h2>Позиции датчика</h2>
+									<br>
+									<div class="w3-light-grey">
+										<br>
+										<br>
+										<div class="rowCal">
+											<div class="wr">
+												<h3>Первое положение</h3>
+												<br>
+
+												<div class="wrapper">
+													<div id="myBar1" class="w3-container w3-green w3-center" style="width:0%">0%</div>
+												</div>
+												<br>
+											</div>
+											<div class="wr">
+												<h3>Второое положение</h3>
+												<br>
+												<div class="wrapper">
+													<div id="myBar2" class="w3-container w3-green w3-center" style="width:0%">0%</div>
+												</div>
+											</div>
+
+											<div class="wr">
+												<h3>Третье положение</h3>
+												<br>
+												<div class="wrapper">
+													<div id="myBar3" class="w3-container w3-green w3-center" style="width:0%">0%</div>
+												</div>
+											</div>
+										</div>
+										<br>
+										<div class="rowCal">
+											<div class="wr">
+												<h3>Четвертое положение</h3>
+												<br>
+												<div class="wrapper">
+													<div id="myBar4" class="w3-container w3-green w3-center" style="width:0%">0%</div>
+												</div>
+											</div>
+											
+											<div class="wr">
+												<h3>Пятое положение</h3>
+												<br>
+												
+												<div class="wrapper">
+													<div id="myBar5" class="w3-container w3-green w3-center" style="width:0%">0%</div>
+												</div>
+												<br>
+											</div>
+											<div class="wr">
+												<h3>Шестое положение</h3>
+												
+												<br>
+												<div class="wrapper">
+													<div id="myBar6" class="w3-container w3-green w3-center" style="width:0%">0%</div>
+												</div>
+											</div>
+										</div>
+										<br>
+										<br>
+										<a id="scan" class="waves-effect waves-light btn-large">Начать сбор данных</a>
+									</div>
+								</div>
+							</div>
+
+							<div class="block3" id="anchor1">
+
+								<div class="wrapMatrix">
+									<h2>Матрица Kx</h2>
+
+									<div class="log">
+										<span id="logInfo_text">Ожидание данных</span>
+										<br>
+										<div class="circle-loader">
+											<div class="checkmark draw"></div>
+										</div>
+										<br>
+									</div>
+									<div class="flexMatrix">
+										<div class="bracketL"></div>
+										<ul id="matrix">
+											<li class="row 1">
+												<span class="element 1"></span>
+												<span class="element 2"></span>
+												<span class="element 3"></span>
+											</li>
+											<li class="row 2">
+												<span class="element 1"></span>
+												<span class="element 2"></span>
+												<span class="element 3"></span>
+											</li>
+											<li class="row 3 margin">
+												<span class="element 1"></span>
+												<span class="element 2"></span>
+												<span class="element 3"></span>
+											</li>
+										</ul>
+										<div class="bracketR"></div>
+									</div>
+									<div id="coef" class="wrap">
+										<h2>Коэффициент b</h2>
+										<div class="log">
+											<span id="logInfo_text">Ожидание данных</span>
+											<br>
+											<div class="circle-loader">
+												<div class="checkmark draw"></div>
+											</div>
+											<br>
+										</div>
+
+										<ul id="coefficient">
+											<li class="coeff"></li>
+											<li class="coeff"></li>
+											<li class="coeff"></li>
+											<li class="coeff"></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="wrapCalab esc">
+							<div class="block4">
+
+								<h2>Калибровка магнитометра</h2>
+
+								<h3>Данные с датчика</h3>
+
+								<div class="input_settings">
+									<div class="post">
+										<br>
+										<input type="text" placeholder="Время считываения данных" size="40" id="speedInputMag">
+										<br><br>
+										<a id="magnitronStart" class="waves-effect waves-light btn-large">Запуск</a>
+									</div>
+								</div>
+								<br>	<br><br>	
+								<h3>Данные из файла</h3>
+								<br>	
+								<a id="magnitronPlot" class="waves-effect waves-light btn-large">Запуск</a>
+
+
+
+							</div>
+
+							<div class="block5 mag5">
+								<h2>График магнитометра</h2>
+								<div class="wrap">
+											<div class="log" id="close">
+											<span id="logInfo_text">Ожидание данных</span>
+											<br>
+											<div class="circle-loader">
+												<div class="checkmark draw"></div>
+											</div>
+											<br>
+										</div>
+								<div id="myDiv2"></div>
+								</div>
+							</div>
+
+						</div>
+						
+
+						<div class="block25">
+
+						</div>
+
+
+
+
+
+
+
+
+
+
+
+					</div>
+				</div>
+
+				<div class="block17"></div>
+			</header>
+
+		</div>
+		<script src="plugins/jquery.js"></script>
+		<script src="plugins/materialize.min.js"></script>
+		<script src="plugins/flickity.js"></script>
+		<script src="js/functions/acsCalibration.js"></script>
+		<script src="js/functions/magCalibration.js"></script>
+		<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+		<script src="js/calibration.js"></script>
+	</body>
+	</html>

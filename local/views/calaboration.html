@@ -1,0 +1,226 @@
+
+<!doctype html>
+<html>
+<head>
+	<title>Тестовая страница</title>
+	<meta charset="utf-8" />
+	<link href="css/fonts.css" rel="stylesheet">
+	<link href="css/main.css" rel="stylesheet">
+	<link href="plugins/jquery-ui.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body class="calaboration">
+
+	<div class="question" id="quest">
+	</div>
+
+	<div class="overlay" ></div>
+	<div class="window" >
+		<div id="head_window" class="head agreement" >И как же тут все работает?</div>
+		<br><br>
+		<div id="text">
+
+			Для начала калибровки датчика нажмите на оранжевую кнопку и выберете подходящие настройки. <br>
+			Запустив программу и установив датчик в первое положение, нажмите на кнопку "Начать сбор данных" и следуйте дальнейшим инструкциям...
+		</div><br>
+
+		<br>
+		<a id="button_window" class="waves-effect waves-light btn-large">Понятно</a>
+	</div>
+
+
+
+
+	<div class="wrapper">	
+		<header>
+			<div class="main_navigation">
+				<br><br>
+				<ul>
+					<li id="first"><a href="index.html">DASHBOARD</a></li>
+					<li id="second"><a href="calaboration.html">CALIBRATION</a></li>
+					<li id="third">AVAR</li>
+					<li id="fourth">TABLES</li>
+				</ul>
+				<div class="button_toggle">
+					<input type="checkbox"><span class="transform"></span>
+				</div>
+			</div>
+
+
+
+			<div class="firstBlock section2">
+				<h1>Калибровка датчика</h1>
+			</div>
+
+
+			<div class="section2">
+				<div class="logInfo">
+					<br>
+					<span id="logInfo_text">Идет калибровка</span>
+					<br>
+					<div class="circle-loader">
+						<div class="checkmark draw"></div>
+					</div>
+					<br>
+				</div>
+				<div class="block2">
+					<div class="input_settings">
+						<div class="post">
+
+							<select id="example-select" name="my_select" >
+								<option>Выбор порта</option>
+
+							</select>
+							<br><br><br>
+							<input type="text" placeholder="Скорость передачи" size="40" id="speed-input">
+							<br><br><br>
+							<a id="clickCalaboration" class="waves-effect waves-light btn-large">Запуск</a>
+							<br>
+							<div class="developer" style="display: none">Режим разработчика
+								<input class="proMode checkbox" type="checkbox" id="proMode"/>
+								<label for='proMode'></label>
+							</div>
+							<div class="additionalSett">
+								<div>Turn Coordinator
+									<input type="text" placeholder="Первое значение" size="40" id="Turn1">
+									<input type="text" placeholder="Второе значение" size="40" id="Turn2">
+								</div>
+								<div>Heading Indicator
+									<input type="text" placeholder="Yaw" size="40" id="Head1">
+								</div>
+								<div>Artifical Horizon
+									<input type="text" placeholder="Roll" size="40" id="Art1">
+									<input type="text" placeholder="Pitch" size="40" id="Art2">
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<br><br>
+				</div>
+
+				<div class="block1" id="anchor1">
+					<div class="w3-light-grey">
+						<br>
+						<br>
+						<h3>Первое положение</h3>
+						<br>
+						<div class="wrapper">
+							<div id="myBar1" class="w3-container w3-green w3-center" style="width:0%">0%</div>
+						</div>
+						<br>
+						<h3>Второое положение</h3>
+						<br>
+						<div class="wrapper">
+							<div id="myBar2" class="w3-container w3-green w3-center" style="width:0%">0%</div>
+						</div>
+						<br>
+						<h3>Третье положение</h3>
+						<br>
+						<div class="wrapper">
+							<div id="myBar3" class="w3-container w3-green w3-center" style="width:0%">0%</div>
+						</div>
+						<br>
+						<h3>Четвертое положение</h3>
+						<br>
+						<div class="wrapper">
+							<div id="myBar4" class="w3-container w3-green w3-center" style="width:0%">0%</div>
+						</div>
+						<br>
+						<h3>Пятое положение</h3>
+						<br>
+						<div class="wrapper">
+							<div id="myBar5" class="w3-container w3-green w3-center" style="width:0%">0%</div>
+						</div>
+						<br>
+						<h3>Шестое положение</h3>
+						<br>
+						<div class="wrapper">
+							<div id="myBar6" class="w3-container w3-green w3-center" style="width:0%">0%</div>
+						</div>
+						<br>
+						<br><br>
+						<a id="scan" class="waves-effect waves-light btn-large">Начать сбор данных</a>
+					</div>
+				</div>
+
+				<div class="block3">
+					<div class="wrap">
+						<h2>Матрица Kx</h2>
+
+						<div class="log">
+							<span id="logInfo_text">Идет калибровка</span>
+							<br>
+							<div class="circle-loader">
+								<div class="checkmark draw"></div>
+							</div>
+							<br>
+						</div>
+						<div class="flexMatrix">
+						<div class="bracketL"></div>
+						<ul id="matrix">
+							<li class="row 1">
+								<span class="element 1"></span>
+								<span class="element 2"></span>
+								<span class="element 3"></span>
+							</li>
+							<li class="row 2">
+								<span class="element 1"></span>
+								<span class="element 2"></span>
+								<span class="element 3"></span>
+							</li>
+							<li class="row 3 margin">
+								<span class="element 1"></span>
+								<span class="element 2"></span>
+								<span class="element 3"></span>
+							</li>
+						</ul>
+							<div class="bracketR"></div>
+						</div>
+						<div id="coef" class="wrap">
+							<h2>Коэффициент b</h2>
+							<div class="log">
+								<span id="logInfo_text">Идет калибровка</span>
+								<br>
+								<div class="circle-loader">
+									<div class="checkmark draw"></div>
+								</div>
+								<br>
+							</div>
+
+							<ul id="coefficient">
+								<li class="coeff"></li>
+								<li class="coeff"></li>
+								<li class="coeff"></li>
+								<li class="coeff"></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div class="block4"></div>
+
+			</div>
+
+
+
+
+
+
+
+		</header>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="/socket.io/socket.io.js"></script> 
+	<script type="text/javascript" src="js/calaboration.js"></script>
+	<script type="text/javascript" src="js/materialize.min.js"></script>
+	<script>
+
+
+	</script>
+</body>
+</html>

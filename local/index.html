@@ -1,0 +1,276 @@
+
+<!doctype html>
+<html>
+<head>
+	<title>Програмный комплекс для анализа шумовх составляющих МЭМС-датчиков</title>
+	<meta charset="utf-8" />
+	<link href="css/fonts.css" rel="stylesheet">
+	<link href="css/main.css" rel="stylesheet">
+	<link href="plugins/jquery-ui.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+	.preloader{
+		position: fixed;
+		width: 100%;
+		height: 109VH;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: #EEEEEF;
+		z-index: 900000;
+		transition: .7s cubic-bezier(.77,0,.175,1),opacity 1.7s linear, .7s cubic-bezier(.77,0,.175,1);
+	}
+
+
+	.lds-roller {
+		display: inline-block;
+		position: relative;
+		width: 64px;
+		height: 64px;
+		transform: scale(2);
+	}
+	.lds-roller div {
+		animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+		transform-origin: 32px 32px;
+	}
+	.lds-roller div:after {
+		content: " ";
+		display: block;
+		position: absolute;
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+		background: #f5962e;
+		margin: -3px 0 0 -3px;
+	}
+	.lds-roller div:nth-child(1) {
+		animation-delay: -0.036s;
+	}
+	.lds-roller div:nth-child(1):after {
+		top: 50px;
+		left: 50px;
+	}
+	.lds-roller div:nth-child(2) {
+		animation-delay: -0.072s;
+	}
+	.lds-roller div:nth-child(2):after {
+		top: 54px;
+		left: 45px;
+	}
+	.lds-roller div:nth-child(3) {
+		animation-delay: -0.108s;
+	}
+	.lds-roller div:nth-child(3):after {
+		top: 57px;
+		left: 39px;
+	}
+	.lds-roller div:nth-child(4) {
+		animation-delay: -0.144s;
+	}
+	.lds-roller div:nth-child(4):after {
+		top: 58px;
+		left: 32px;
+	}
+	.lds-roller div:nth-child(5) {
+		animation-delay: -0.18s;
+	}
+	.lds-roller div:nth-child(5):after {
+		top: 57px;
+		left: 25px;
+	}
+	.lds-roller div:nth-child(6) {
+		animation-delay: -0.216s;
+	}
+	.lds-roller div:nth-child(6):after {
+		top: 54px;
+		left: 19px;
+	}
+	.lds-roller div:nth-child(7) {
+		animation-delay: -0.252s;
+	}
+	.lds-roller div:nth-child(7):after {
+		top: 50px;
+		left: 14px;
+	}
+	.lds-roller div:nth-child(8) {
+		animation-delay: -0.288s;
+	}
+	.lds-roller div:nth-child(8):after {
+		top: 45px;
+		left: 10px;
+	}
+	@keyframes lds-roller {
+		0% {
+			transform: rotate(0deg);
+		}
+		100% {
+			transform: rotate(360deg);
+		}
+	}
+
+
+</style>
+</head>
+<body>
+	<div class="question index" id="quest">
+	</div>
+	<div class="overlay" ></div>
+	<div class="window" >
+		<div id="head_window" class="head agreement" >Привет!</div>
+		<div class="sea">
+			<div class="circle-wrapper">
+				<div class="bubble"></div>
+				<div class="submarine-wrapper">
+					<div class="submarine-body">
+						<div class="windows"></div>
+						<div class="engine"></div>
+						<div class="light"></div>
+					</div>
+					<div class="helix"></div>
+					<div class="hat">
+						<div class="leds-wrapper">
+							<div class="periscope"></div>
+							<div class="leds"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="text">
+			На данной странице можно посмотреть на работу различных датчиков.
+		</div><br>
+
+		<br>
+		<a id="button_window" class="waves-effect waves-light btn-large">Понятно</a>
+		<a id="button_restart" class="waves-effect waves-light btn-large">Перезагрузить</a>
+	</div>
+
+	<div class="preloader">
+		<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+	</div>
+	<div class="posCheck">
+		<div class="wrap">
+			<span id="logInfo_text">Подключение к плате</span>
+			<div class="circle-loader-check">
+				<div class="checkmark-check draw"></div>
+			</div>
+		</div>
+	</div>
+	<div class="wrapper">	
+		<header>
+			<div class="main_navigation">
+				<br><br>
+				<ul>
+					<li id="first"><a href="index.html">ПРИБОРНАЯ ПАНЕЛЬ</a></li>
+					<li id="second"><a href="calibration.html">КАЛИБРОВКА</a></li>
+					<li id="third"><a href="avar.html">ВАРИАЦИЯ АЛЛАНА</a></li>
+				</ul>
+
+				<div class="button_toggle">
+					<input type="checkbox"><span class="transform"></span>
+				</div>
+			</div>
+
+
+			<div class="input_settings">
+				<div class="post">
+					
+					<select id="example-select" name="my_select" >
+						<option>Выбор порта</option>
+
+					</select>
+					<input type="text" placeholder="Скорость передачи" size="40" id="speed-input">
+					<button id="click">Запуск</button>
+					<div class="developer">Режим разработчика
+						<input class="proMode checkbox" type="checkbox" id="proMode"/>
+						<label for='proMode'></label>
+					</div>
+					<div class="additionalSett">
+						<div>Turn Coordinator
+							<input type="text" placeholder="Turn" size="40" id="Turn1">
+							<input type="text" placeholder="Slip" size="40" id="Turn2">
+						</div>
+						<div>Heading Indicator
+							<input type="text" placeholder="Yaw" size="40" id="Head1">
+						</div>
+						<div>Artifical Horizon
+							<input type="text" placeholder="Roll" size="40" id="Art1">
+							<input type="text" placeholder="Pitch" size="40" id="Art2">
+						</div>
+					</div>
+				</div>
+				
+			</div>
+
+
+
+			<div class="firstBlock"></div>
+			<div class="secondBlock"></div>
+			<div class="mainBlock1">
+				<div class="cockpit">
+					Приборная панель
+					<div class="elements">
+						<div class="blockPitch">
+							<div class="arrow"></div>
+							<div class="background"></div>
+							<div class="circle"></div>
+							<div class="text">
+								Указатель поворота
+							</div>
+						</div>
+
+						<div class="blockRoll">
+							<div class="arrow"></div>
+							<div class="background"></div>
+							<div class="text">
+								Указатель курса
+							</div>
+						</div>
+						<div class="blockHaw">
+							<div class="Wrapper"></div>
+							<div class="cirle"></div>
+							<div class="arrow"></div>
+							<div class="backgroundWrapper">
+								<div class="background"></div>
+							</div>
+							<div class="text">
+								Авиагоризонт
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="wrap">
+					<a id="button_over" class="waves-effect waves-light btn-large index_button">Остановить</a>
+					<a id="button_window_menu" class="waves-effect waves-light btn-large index_button">Настройки</a>
+				</div>		
+
+			</div>
+
+
+			<div class="mainBlock2">
+
+				<div id="map"></div>
+			</div>
+
+			<div class="mainBlock3">
+
+				<div id="map"></div>
+			</div>
+
+			<div class="mainBlock4">
+
+				<div id="map"></div>
+			</div>
+
+
+
+		</header>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script type="text/javascript" src="plugins/materialize.min.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+</body>
+</html>

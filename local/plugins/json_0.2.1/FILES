@@ -1,0 +1,14 @@
+424e779ebd2829e9c93074ffeda40166 DESCRIPTION
+d41d8cd98f00b204e9800998ecf8427e etc/JSON.quit
+dde759684a0a2f9a8ee6390ed9cd474b etc/JSON.start
+529208575e563f181c1070fbf359bd7b loader.sce
+544580a12c055c3c74b63b9c547d831f macros/buildmacros.sce
+ceef2611f32a38ee8bb4bfaad8033760 macros/JSONParse.bin
+1745273011849ffdb0c9d1f43932fd71 macros/JSONParse.sci
+569f0af270197e2c088754220574305e macros/names
+38b0559bdce711352ed13fefeaa76b97 README.md
+9bcfdcc3afa9dfea67800dd5bec5a624 tests/examples/eg_1.json
+d32d0f34bddeec321a63b29293210e60 tests/examples/eg_2.json
+47dafdb7d86c0bf5cd2087e53cc14cd9 tests/examples/eg_3.json
+abdfe316bb26a690242c6c6ad351e7e5 tests/examples/eg_4.json
+b956e4b8fe487fc35c578f195ec1c890 tests/JSON_applications.sce
